@@ -1,101 +1,223 @@
-<div align="center">🟦 OpenGL Shape Playground
-Interactive 2D Shape Generation & Management
-A small C++ / OpenGL application that creates four square-based shapes, places them randomly without overlap, and lets you delete them in the order they were added.
 
-<sub>The animated preview is taken from the actual running application. Click it to open the full demonstration.</sub>
-</div>✨ Highlights
-Feature	How it works
-🎲 Random shape generation	Every press of S selects one of four models.
-📍 Random positioning	Shapes appear at randomly chosen grid coordinates.
-🧩 No overlapping squares	New positions are tried until the model does not overlap an existing one.
-🔢 Three-model limit	At most three models can be displayed simultaneously.
-🗑️ First-in, first-out deletion	Pressing D removes the oldest model.
-🔄 Immediate rendering	The displayed shapes update after every addition or deletion.
+# 🟦 OpenGL Shape Playground
 
+### Interactive 2D Shape Generation & Management
 
-🎮 Controls
-Key	Action
-<kbd>S</kbd>	Add one randomly selected model (up to three at once).
-<kbd>D</kbd>	Delete the oldest model currently on screen.
-<kbd>Q</kbd>	Exit the application.
+A simple yet interactive **C++ / OpenGL 3.3** application that generates geometric shapes, places them randomly on the screen, prevents overlapping, and allows users to manage them using keyboard controls.
 
+![C++](https://img.shields.io/badge/C++-00599C?style=flat-square&logo=cplusplus&logoColor=white)
+![OpenGL](https://img.shields.io/badge/OpenGL-3.3-blue?style=flat-square)
+![Visual Studio](https://img.shields.io/badge/Visual%20Studio-Windows%20x64-purple?style=flat-square)
+![Status](https://img.shields.io/badge/Status-Completed-success?style=flat-square)
 
-Tip: For S and D, release the key before pressing it again. Holding the key down does not repeatedly add or delete shapes.
+---
 
-🟨 The Four Models
-Each model is built from 1 × 1 squares. Every square is drawn as two triangles.
+## 🎬 Project Demo
 
-<img width="540" height="227" alt="image" src="https://github.com/user-attachments/assets/cdfe6570-fd66-4c69-9a3d-243f84f63512" />
+Watch the application in action!
 
 
 
-🛠️ Tech Stack
-- Language: C++
-- Graphics: OpenGL 3.3 core profile
-- Libraries: GLFW · GLEW · GLM
-- IDE / platform: Microsoft Visual Studio · Windows · x64
-- Rendering: Vertex buffers, GLSL shaders, and glDrawArrays(GL_TRIANGLES, ...)
-🚀 Getting Started
-[!IMPORTANT]
-This repository contains the source code and GLSL shaders, not a ready-to-build Visual Studio solution or preconfigured library paths. You must set up the OpenGL dependencies in your own C++ project.
 
-1. On Windows, create or open a C++ project in Microsoft Visual Studio, using the x64 platform.
-2. Configure GLFW, GLEW, and GLM, along with the required OpenGL include directories and linker settings.
-3. Add Source-1A.cpp to the project.
-4. Make both shader files accessible from the application's working directory:
-   - ProjectVertexShader.vertexshader
-   - ProjectFragmentShader.fragmentshader
-5. Build and run the application.
-6. Press <kbd>S</kbd>, <kbd>D</kbd>, or <kbd>Q</kbd> to interact with the 900 × 900 window.
-<details>
-<summary><b>🔤 Greek characters not showing correctly in the window title?</b></summary>If the Greek title displays as question marks, check that the C++ file is saved as UTF-8. In Visual Studio, you can also try:
 
-Project → Properties → Configuration Properties → C/C++ → Command Line → Additional Options
 
-Add /utf-8, then select Apply and Rebuild Solution. Also see the GLFW window title documentation.
-</details>🧠 How It Works
-The application manages active models using vector<vector<GLfloat>> models and combines their vertices into a drawing buffer each frame.
-```mermaid
-flowchart TD
-    A[Press S] --> B{Fewer than 3 models?}
-    B -->|No| Z[Keep existing scene]
-    B -->|Yes| C[Choose random model A-D]
-    C --> D[Choose random x and y]
-    D --> E[Build model vertices]
-    E --> F{Overlaps another model?}
-    F -->|Yes| D
-    F -->|No| G[Append model]
-    G --> H[Refresh vertex buffer and redraw]
-    J[Press D] --> K{Any models left?}
-    K -->|Yes| L[Remove first / oldest model]
-    K -->|No| Z
-    L --> H
-```
-<details>
-<summary><b>🔍 Main functions</b></summary>- addSquare() creates six triangle vertices for one square.
-- createModel() constructs one of the four configurations.
-- overlap() compares the occupied square positions of a new model with those of previously added models.
-- models.push_back(newModel) adds a successfully placed model.
-- models.erase(models.begin()) removes the oldest model.
-- glBufferData() and glDrawArrays() update and render the visible geometry.
-</details>📁 Repository Structure
+
+The demonstration shows random shape generation, collision prevention, and model deletion using keyboard controls.
+
+---
+
+## ✨ Features
+
+- 🎲 **Random Shape Generation** — Generates one of four predefined geometric models.
+- 📍 **Random Positioning** — Places shapes at randomly selected coordinates.
+- 🧩 **Collision Prevention** — Ensures shapes do not overlap.
+- 🔢 **Three-Shape Limit** — Displays a maximum of three models simultaneously.
+- 🗑️ **FIFO Deletion** — Deletes the oldest model first.
+- ⚡ **Real-Time Rendering** — Updates the display immediately after each action.
+- 🎮 **Keyboard Interaction** — Simple and intuitive controls.
+
+---
+
+## 🎮 Keyboard Controls
+
+| Key | Action |
+|:---:|---|
+| **S** | Generate and add a random shape |
+| **D** | Delete the oldest existing shape |
+| **Q** | Quit the application |
+
+> **Note:** A maximum of three shapes can be displayed at once. After deleting a shape, a new one can be added by pressing **S**.
+
+---
+
+## 🟨 Available Shape Models
+
+The application supports four different models, each constructed from unit squares.
+
+| Model | Description | Squares |
+|:---:|---|:---:|
+| **A** | Single square | 1 |
+| **B** | Two horizontal squares | 2 |
+| **C** | Three vertical squares | 3 |
+| **D** | L-shaped configuration | 3 |
+
+Each square consists of **two triangles**, rendered using OpenGL.
+
+<img width="537" height="215" alt="image" src="https://github.com/user-attachments/assets/fc8144f9-c67e-4778-93ed-b4f7de12c616" />
+
+
+---
+
+## 🛠️ Technologies Used
+
+| Technology | Purpose |
+|---|---|
+| **C++** | Main programming language |
+| **OpenGL 3.3** | 2D graphics rendering |
+| **GLFW** | Window creation and keyboard input |
+| **GLEW** | OpenGL extension management |
+| **GLM** | Graphics mathematics |
+| **GLSL** | Vertex and fragment shaders |
+| **Microsoft Visual Studio** | Development environment |
+| **Windows x64** | Development platform |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+Before running the application, make sure you have:
+
+- Microsoft Visual Studio with C++ support
+- OpenGL 3.3 compatible graphics drivers
+- GLFW, GLEW, and GLM libraries
+- Windows with x64 project configuration
+
+### Installation & Execution
+
+**1. Create or open a C++ project in Visual Studio.**
+
+**2. Configure the required libraries:**
+
+- GLFW
+- GLEW
+- GLM
+
+**3. Add the source file to your project:**
+
+`Source-1A.cpp`
+
+**4. Make sure the shader files are accessible from the application's working directory:**
+
+- `ProjectVertexShader.vertexshader`
+- `ProjectFragmentShader.fragmentshader`
+
+**5. Build and run the application.**
+
+A **900 × 900** window with a dark-blue background will appear.
+
+Use **S**, **D**, and **Q** to interact with the program.
+
+> This repository contains the source files and shaders. The OpenGL libraries and Visual Studio project configuration must be set up separately.
+
+---
+
+## 🧠 How It Works
+
+### 1. Shape Creation
+
+When the user presses **S**, the application:
+
+1. Checks whether fewer than three models exist.
+2. Randomly selects one of the four models.
+3. Generates random coordinates.
+4. Constructs the model using unit squares.
+5. Checks whether the new model overlaps an existing one.
+6. Repeats positioning until a valid location is found.
+7. Adds the model to the scene.
+
+### 2. Collision Detection
+
+The `overlap()` function compares the positions of the unit squares belonging to different models.
+
+If an overlap is detected, the application generates new coordinates before adding the model.
+
+### 3. Shape Deletion
+
+When **D** is pressed, the oldest model is removed using:
+
+`models.erase(models.begin());`
+
+This implements a **First-In, First-Out (FIFO)** deletion mechanism.
+
+### 4. Rendering
+
+The vertices of all active models are combined into a single vertex array.
+
+The application then updates the OpenGL vertex buffer and renders the models using:
+
+- `glBufferData()`
+- `glVertexAttribPointer()`
+- `glDrawArrays()`
+
+---
+
+## 📂 Project Structure
+
+```text
 OpenGL-Shape-Playground/
+│
 ├── README.md
 ├── Source-1A.cpp
+│
 ├── ProjectVertexShader.vertexshader
 ├── ProjectFragmentShader.fragmentshader
-├── .gitignore
+│
 └── demo/
-    ├── demo.mp4         # Full recording (compressed for GitHub)
-    └── preview.gif      # Animated README preview
-🎥 Video Demonstration
-The full demo shows the application running in Visual Studio and demonstrates how models are added and removed.
+    ├── demo.mp4
+    └── preview.gif
+```
 
-▶ [Play the complete demonstration](demo/demo.mp4)
+---
 
-If you want a GitHub-hosted video player directly in this README, use the GitHub README editor to attach demo/demo.mp4 and paste the generated video attachment URL on a line by itself in this section. The GIF above will still play automatically.
-🎓 About This Project
-Developed as a university computer graphics programming exercise. The original starter code and GLSL shader files were provided with the course materials; the square models and interactive management logic were implemented as part of the assignment.
-<div align="center">
-  <sub>Built with C++ and OpenGL · From basic squares to an interactive shape playground</sub>
-</div>
+## 🔧 Troubleshooting
+
+### Greek Characters in the Window Title
+
+If Greek characters appear as question marks in the window title, check the file encoding and the Visual Studio compiler settings.
+
+One possible solution is to enable UTF-8 compilation:
+
+**Project → Properties → C/C++ → Command Line → Additional Options**
+
+Add:
+
+`/utf-8`
+
+Then rebuild the solution.
+
+For more information, see the [GLFW Window Title Documentation](https://www.glfw.org/docs/3.3/window_guide.html#window_title).
+
+---
+
+## 🎓 About the Project
+
+This project was developed as part of a university **Computer Graphics / OpenGL programming assignment**.
+
+The objective was to explore fundamental graphics programming concepts, including:
+
+- Geometric modeling
+- Vertex-based rendering
+- Random object positioning
+- Collision detection
+- Keyboard event handling
+- Dynamic object management
+
+The original starter code and GLSL shader files were provided as course materials.
+
+---
+
+### ⭐ Built with C++ and OpenGL
+
+*A small interactive graphics project demonstrating shape generation, collision detection, and dynamic model management.*
