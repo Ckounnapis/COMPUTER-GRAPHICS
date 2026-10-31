@@ -16,11 +16,7 @@ A simple yet interactive **C++ / OpenGL 3.3** application that generates geometr
 
 Watch the application in action!
 
-
-
-
-
-
+<img width="540" height="558" alt="preview" src="https://github.com/user-attachments/assets/2b2411b1-c185-454d-9be8-4ada8c96ebca" />
 
 The demonstration shows random shape generation, collision prevention, and model deletion using keyboard controls.
 
