@@ -2,14 +2,6 @@
 Interactive 2D Shape Generation & Management
 A small C++ / OpenGL application that creates four square-based shapes, places them randomly without overlap, and lets you delete them in the order they were added.
 
-
-
-
-
-[!\[Watch the OpenGL Shape Playground demo\]\(demo/preview.gif)](demo/demo.mp4)
-
-🎬 [Watch the full demo (MP4)](demo/demo.mp4)  ·  📁 [Browse the source code](Source-1A.cpp)
-
 <sub>The animated preview is taken from the actual running application. Click it to open the full demonstration.</sub>
 </div>✨ Highlights
 Feature	How it works
@@ -32,12 +24,9 @@ Tip: For S and D, release the key before pressing it again. Holding the key down
 
 🟨 The Four Models
 Each model is built from 1 × 1 squares. Every square is drawn as two triangles.
-A — Single	B — Horizontal	C — Vertical	D — L-shape
-🟨	🟨🟨	🟨
-🟨
-🟨	🟨🟨
-🟨
-1 square	2 squares	3 squares	3 squares
+
+<img width="540" height="227" alt="image" src="https://github.com/user-attachments/assets/cdfe6570-fd66-4c69-9a3d-243f84f63512" />
+
 
 
 🛠️ Tech Stack
